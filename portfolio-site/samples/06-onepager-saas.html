@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevFlow — Product One-Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #0A0F1E; --blue: #2563EB; --blue-2: #1D4ED8; --blue-light: #EFF6FF; --border-blue: #BFDBFE; --ink: #0F172A; --ink-2: #334155; --ink-3: #64748B; --bg: #F8FAFC; --white: #FFFFFF; --border: #E2E8F0; --green: #059669; --green-bg: #ECFDF5; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; max-width: 900px; margin: 0 auto; }
+
+  .sample-bar { background: #0F172A; color: rgba(255,255,255,0.7); font-size: 0.75rem; padding: 0.55rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+  .sample-bar a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .sample-bar a:hover { color: #fff; }
+  .sample-badge { background: #C27A20; color: #fff; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 100px; }
+
+  .page { background: var(--white); border: 1px solid var(--border); }
+
+  /* HEADER */
+  .header { background: var(--navy); padding: 2.5rem 3rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+  .header-logo { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; }
+  .logo-mark { width: 32px; height: 32px; background: var(--blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+  .logo-name { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.01em; }
+  .header-tagline { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.75rem; }
+  .header h1 { font-size: 1.8rem; font-weight: 500; color: #fff; line-height: 1.25; letter-spacing: -0.01em; }
+  .header h1 span { color: #93C5FD; }
+  .header-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.7; margin-top: 0.75rem; max-width: 420px; }
+  .header-right { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+  .header-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 0.3rem 0.85rem; font-size: 0.78rem; color: rgba(255,255,255,0.55); white-space: nowrap; }
+  .header-pill.highlight { background: rgba(37,99,235,0.3); border-color: rgba(37,99,235,0.5); color: #93C5FD; }
+
+  /* METRICS STRIP */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--blue-2); }
+  .metric { padding: 1.25rem 1.5rem; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+  .metric:last-child { border-right: none; }
+  .metric-num { font-size: 1.7rem; font-weight: 500; color: #fff; line-height: 1; }
+  .metric-label { font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; }
+
+  /* BODY */
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .left { border-right: 1px solid var(--border); }
+
+  .section { padding: 1.75rem 2rem; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.6rem; }
+  .section h2 { font-size: 1.05rem; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; }
+  .section p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.7; margin-bottom: 0.75rem; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .pain-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pain-list li { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; display: flex; gap: 0.6rem; line-height: 1.5; }
+  .pain-list li::before { content: '✕'; color: #DC2626; font-size: 0.72rem; flex-shrink: 0; margin-top: 0.2rem; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .feature-item { display: flex; gap: 0.85rem; align-items: flex-start; }
+  .feature-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .feature-item h4 { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.15rem; }
+  .feature-item p { font-size: 0.8rem; color: var(--ink-3); font-weight: 300; line-height: 1.5; margin: 0; }
+
+  .quote-block { background: var(--blue-light); border-left: 3px solid var(--blue); padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; }
+  .quote-block blockquote { font-size: 0.88rem; color: var(--ink); font-style: italic; line-height: 1.6; margin-bottom: 0.4rem; }
+  .quote-block cite { font-size: 0.75rem; color: var(--ink-3); font-style: normal; }
+
+  .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.5rem; }
+  .integration-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 0.4rem 0.6rem; font-size: 0.75rem; color: var(--ink-2); font-family: 'DM Mono', monospace; text-align: center; }
+
+  .pricing-table { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-top: 0.5rem; }
+  .pricing-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .pricing-row:last-child { border-bottom: none; }
+  .pricing-cell { padding: 0.65rem 0.85rem; font-size: 0.82rem; }
+  .pricing-cell:first-child { color: var(--ink-2); font-weight: 300; border-right: 1px solid var(--border); }
+  .pricing-cell:last-child { font-weight: 500; color: var(--ink); }
+  .pricing-row.header-row .pricing-cell { background: var(--bg); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); }
+
+  /* FOOTER */
+  .footer { background: var(--navy); display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: 1.5rem 2rem; }
+  .footer-left { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .footer-contact { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+  .footer-contact strong { color: rgba(255,255,255,0.65); font-weight: 500; display: block; margin-bottom: 0.15rem; }
+  .cta-btn { background: var(--blue); color: #fff; font-size: 0.82rem; font-weight: 500; padding: 0.65rem 1.25rem; border-radius: 4px; text-decoration: none; white-space: nowrap; transition: opacity 0.2s; }
+  .cta-btn:hover { opacity: 0.85; }
+
+  @media (max-width: 650px) {
+    .header, .body { grid-template-columns: 1fr; }
+    .left { border-right: none; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .footer { grid-template-columns: 1fr; }
+    .header { padding: 2rem 1.5rem; }
+    .section { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sample-bar">
+  <a href="../portfolio.html">← Back to portfolio</a>
+  <span>Portfolio sample — <strong style="color:#fff;">Aashi Agarwal</strong> · Product One-Pager · SaaS / Dev Tools</span>
+  <span class="sample-badge">Sample Work</span>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div>
+      <div class="header-logo">
+        <div class="logo-mark">⚡</div>
+        <span class="logo-name">DevFlow</span>
+      </div>
+      <p class="header-tagline">CI/CD Intelligence Platform</p>
+      <h1>Ship faster.<br>Break <span>nothing</span>.</h1>
+      <p class="header-sub">DevFlow catches pipeline failures, flaky tests, and deployment risks before they reach production — giving engineering teams the confidence to deploy on Friday.</p>
+    </div>
+    <div class="header-right">
+      <span class="header-pill highlight">✦ New: AI Root Cause Analysis</span>
+      <span class="header-pill">SOC 2 Type II Certified</span>
+      <span class="header-pill">Works with any CI/CD stack</span>
+      <span class="header-pill">Setup in under 15 minutes</span>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-num">73%</div><div class="metric-label">Fewer production incidents</div></div>
+    <div class="metric"><div class="metric-num">4.2h</div><div class="metric-label">Saved per developer per week</div></div>
+    <div class="metric"><div class="metric-num">2,400+</div><div class="metric-label">Engineering teams</div></div>
+    <div class="metric"><div class="metric-num">&lt;15min</div><div class="metric-label">Average time to first insight</div></div>
+  </div>
+
+  <div class="body">
+    <div class="left">
+
+      <div class="section">
+        <p class="section-label">The Problem</p>
+        <h2>Your CI/CD pipeline is a black box</h2>
+        <p>Engineering teams are shipping faster than ever — and flying blind when things go wrong. The result:</p>
+        <ul class="pain-list">
+          <li>Flaky tests waste hours before anyone figures out they're not real failures</li>
+          <li>Deployment failures surface in production, not in the pipeline</li>
+          <li>Post-incident debugging takes hours because nobody knows which change caused what</li>
+          <li>Engineers skip tests or delay deploys because they don't trust the pipeline</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <p class="section-label">How It Works</p>
+        <h2>Intelligent observability across your entire delivery pipeline</h2>
+        <ul class="feature-list">
+          <li>
+            <div class="feature-icon">🔍</div>
+            <div>
+              <h4>AI Root Cause Analysis</h4>
+              <p>When a build fails, DevFlow identifies the likely cause — changed dependency, test environment issue, or specific commit — in seconds, not hours.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">🧪</div>
+            <div>
+              <h4>Flaky Test Detection</h4>
+              <p>Automatically identifies tests that fail non-deterministically. Quarantines them to a separate suite so they stop blocking real deployments.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">🚀</div>
+            <div>
+              <h4>Deployment Risk Scoring</h4>
+              <p>Before you deploy, DevFlow scores the risk based on change size, test coverage gaps, and historical failure patterns for that service.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">📊</div>
+            <div>
+              <h4>DORA Metrics Dashboard</h4>
+              <p>Deployment frequency, lead time, change failure rate, and MTTR — automatically tracked, no instrumentation required.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <p class="section-label">Integrations</p>
+        <h2>Works with your existing stack</h2>
+        <div class="integration-grid">
+          <span class="integration-tag">GitHub Actions</span>
+          <span class="integration-tag">GitLab CI</span>
+          <span class="integration-tag">CircleCI</span>
+          <span class="integration-tag">Jenkins</span>
+          <span class="integration-tag">Buildkite</span>
+          <span class="integration-tag">Terraform</span>
+          <span class="integration-tag">PagerDuty</span>
+          <span class="integration-tag">Slack</span>
+          <span class="integration-tag">Jira</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right">
+
+      <div class="section">
+        <p class="section-label">What Teams Say</p>
+        <div class="quote-block">
+          <blockquote>"We used to spend Monday mornings unpicking what broke over the weekend. With DevFlow, we know within minutes what happened and why. Friday deploys are no longer a team-wide anxiety event."</blockquote>
+          <cite>— Anjali Patel, Staff Engineer · Forma Health (Series B)</cite>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-label">Pricing</p>
+        <h2>Simple, predictable, per-seat</h2>
+        <p>No per-build limits, no usage surprises. Price based on active developers.</p>
+        <div class="pricing-table">
+          <div class="pricing-row header-row">
+            <div class="pricing-cell">Plan</div>
+            <div class="pricing-cell">Starts at</div>
+          </div>
+          <div class="pricing-row">
+            <div class="pricing-cell">Starter (up to 10 devs)</div>
+            <div class="pricing-cell">$29 / mo</div>
+          </div>
+          <div class="pricing-row">
+            <div class="pricing-cell">Team (up to 50 devs)</div>
+            <div class="pricing-cell">$199 / mo</div>
+          </div>
+          <div class="pricing-row">
+            <div class="pricing-cell">Growth (up to 150 devs)</div>
+            <div class="pricing-cell">$499 / mo</div>
+          </div>
+          <div class="pricing-row">
+            <div class="pricing-cell">Enterprise (150+ devs)</div>
+            <div class="pricing-cell">Custom</div>
+          </div>
+        </div>
+        <p style="margin-top:0.65rem; font-size:0.78rem; color:var(--ink-3);">All plans include unlimited pipelines, 14-day free trial, and dedicated onboarding. Annual billing saves 20%.</p>
+      </div>
+
+      <div class="section">
+        <p class="section-label">Security & Compliance</p>
+        <h2>Enterprise-ready from day one</h2>
+        <ul class="feature-list">
+          <li>
+            <div class="feature-icon">🔐</div>
+            <div><h4>SOC 2 Type II Certified</h4><p>Annual third-party audits. Full report available under NDA.</p></div>
+          </li>
+          <li>
+            <div class="feature-icon">🏢</div>
+            <div><h4>Self-hosted option</h4><p>Deploy DevFlow inside your VPC. No data leaves your infrastructure.</p></div>
+          </li>
+          <li>
+            <div class="feature-icon">👥</div>
+            <div><h4>SSO & RBAC</h4><p>SAML 2.0, SCIM provisioning, and role-based access control included on Team and above.</p></div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-contact"><strong>Sales</strong>sales@devflow.io</div>
+      <div class="footer-contact"><strong>Website</strong>devflow.io</div>
+      <div class="footer-contact"><strong>Documentation</strong>docs.devflow.io</div>
+      <div class="footer-contact"><strong>Status</strong>status.devflow.io</div>
+    </div>
+    <a href="#" class="cta-btn">Start Free Trial →</a>
+  </div>
+
+</div>
+</body>
+</html>

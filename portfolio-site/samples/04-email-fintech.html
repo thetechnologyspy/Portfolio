@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Campaign — ClearBook AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: #F1F5F9; color: #1E293B; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .sample-bar { background: #1E293B; color: rgba(255,255,255,0.7); font-size: 0.75rem; padding: 0.55rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+  .sample-bar a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .sample-bar a:hover { color: #fff; }
+  .sample-badge { background: #C27A20; color: #fff; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 100px; }
+
+  .page-header { background: #fff; border-bottom: 1px solid #E2E8F0; padding: 2rem 2.5rem; }
+  .page-header h1 { font-size: 1.4rem; font-weight: 500; color: #1E293B; margin-bottom: 0.4rem; }
+  .page-header p { font-size: 0.88rem; color: #64748B; font-weight: 300; }
+  .campaign-meta { display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .meta-item { font-size: 0.8rem; color: #64748B; display: flex; align-items: center; gap: 0.4rem; }
+  .meta-item strong { color: #1E293B; font-weight: 500; }
+
+  .emails-wrap { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; display: flex; flex-direction: column; gap: 2rem; }
+
+  .email-block { background: #fff; border: 1px solid #E2E8F0; border-radius: 10px; overflow: hidden; }
+  .email-meta { background: #F8FAFC; border-bottom: 1px solid #E2E8F0; padding: 1rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .email-num { background: #1E293B; color: #fff; font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.55rem; border-radius: 100px; flex-shrink: 0; }
+  .email-timing { font-size: 0.78rem; color: #64748B; font-weight: 500; }
+  .email-subject-meta { font-size: 0.82rem; color: #475569; }
+  .email-subject-meta strong { color: #1E293B; font-weight: 500; }
+
+  /* Simulated email client chrome */
+  .email-chrome { background: #FAFAFA; border-bottom: 1px solid #E2E8F0; padding: 0.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .email-field { display: flex; gap: 0.75rem; font-size: 0.82rem; }
+  .field-label { color: #94A3B8; min-width: 60px; font-size: 0.78rem; }
+  .field-value { color: #334155; }
+  .field-value .subject-line { font-weight: 500; color: #1E293B; }
+
+  /* Email body rendering */
+  .email-render { padding: 2rem 1.5rem; background: #F1F5F9; }
+  .email-inner { max-width: 560px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #E2E8F0; }
+
+  .email-logo-bar { padding: 1.5rem 2rem; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; gap: 0.5rem; }
+  .email-logo-icon { width: 28px; height: 28px; background: #1D4ED8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+  .email-logo-name { font-weight: 500; font-size: 0.95rem; color: #1E293B; }
+
+  .email-hero { padding: 2rem 2rem 1.5rem; }
+  .email-hero h2 { font-size: 1.3rem; font-weight: 500; color: #1E293B; margin-bottom: 0.75rem; line-height: 1.35; }
+  .email-hero p { font-size: 0.9rem; color: #475569; font-weight: 300; line-height: 1.7; margin-bottom: 1rem; }
+  .email-cta { display: inline-block; background: #1D4ED8; color: #fff; font-size: 0.875rem; font-weight: 500; padding: 0.7rem 1.4rem; border-radius: 4px; text-decoration: none; margin-top: 0.5rem; }
+
+  .email-feature-box { margin: 0 2rem 1.5rem; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 1.25rem; }
+  .email-feature-box h3 { font-size: 0.88rem; font-weight: 500; color: #1D4ED8; margin-bottom: 0.4rem; }
+  .email-feature-box p { font-size: 0.83rem; color: #334155; font-weight: 300; line-height: 1.6; margin: 0; }
+
+  .email-list { margin: 0 2rem 1.5rem; list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .email-list li { display: flex; gap: 0.6rem; font-size: 0.875rem; color: #475569; font-weight: 300; }
+  .email-list li::before { content: '✓'; color: #059669; font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem; font-weight: 600; }
+
+  .email-divider { border: none; border-top: 1px solid #F1F5F9; margin: 0 2rem 1.5rem; }
+
+  .email-body-text { padding: 0 2rem 1.5rem; font-size: 0.875rem; color: #475569; font-weight: 300; line-height: 1.7; }
+  .email-body-text p { margin-bottom: 0.75rem; }
+  .email-body-text strong { color: #1E293B; font-weight: 500; }
+
+  .email-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #F1F5F9; margin: 0 0 1.5rem; border-top: 1px solid #F1F5F9; border-bottom: 1px solid #F1F5F9; }
+  .email-stat { background: #fff; padding: 1.25rem; text-align: center; }
+  .email-stat-num { font-size: 1.5rem; font-weight: 500; color: #1D4ED8; line-height: 1; }
+  .email-stat-label { font-size: 0.73rem; color: #94A3B8; margin-top: 0.25rem; }
+
+  .email-testimonial { margin: 0 2rem 1.5rem; background: #F8FAFC; border-left: 3px solid #1D4ED8; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; }
+  .email-testimonial blockquote { font-size: 0.875rem; color: #334155; font-style: italic; line-height: 1.6; margin-bottom: 0.4rem; }
+  .email-testimonial cite { font-size: 0.78rem; color: #94A3B8; font-style: normal; }
+
+  .email-footer { padding: 1.25rem 2rem; border-top: 1px solid #F1F5F9; background: #F8FAFC; }
+  .email-footer p { font-size: 0.73rem; color: #94A3B8; line-height: 1.6; }
+  .email-footer a { color: #64748B; text-decoration: underline; }
+
+  .email-sign { padding: 0 2rem 1.5rem; font-size: 0.875rem; color: #475569; font-weight: 300; }
+  .email-sign p { margin-bottom: 0.25rem; }
+  .email-sign strong { color: #1E293B; font-weight: 500; }
+
+  .annotations { padding: 1rem 1.5rem; background: #FFFBEB; border-top: 1px solid #FDE68A; }
+  .annotation-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #92400E; margin-bottom: 0.5rem; }
+  .annotation-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .annotation-list li { font-size: 0.78rem; color: #78350F; display: flex; gap: 0.5rem; }
+  .annotation-list li::before { content: '→'; color: #D97706; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="sample-bar">
+  <a href="../portfolio.html">← Back to portfolio</a>
+  <span>Portfolio sample — <strong style="color:#fff;">Aashi Agarwal</strong> · Email Campaign · Fintech</span>
+  <span class="sample-badge">Sample Work</span>
+</div>
+
+<div class="page-header">
+  <h1>ClearBook AI — Onboarding Email Campaign</h1>
+  <p>3-email drip sequence for new trial signups. Goal: activate users and convert to paid within 7 days.</p>
+  <div class="campaign-meta">
+    <span class="meta-item"><strong>Client:</strong> ClearBook AI (AI-powered bookkeeping for SMBs)</span>
+    <span class="meta-item"><strong>Audience:</strong> SMB owners, solo founders, freelancers</span>
+    <span class="meta-item"><strong>Sequence:</strong> Day 0 · Day 3 · Day 7</span>
+    <span class="meta-item"><strong>Goal:</strong> Trial → paid conversion</span>
+  </div>
+</div>
+
+<div class="emails-wrap">
+
+  <!-- EMAIL 1 -->
+  <div class="email-block">
+    <div class="email-meta">
+      <span class="email-num">Email 1</span>
+      <span class="email-timing">Sent: Immediately after signup</span>
+    </div>
+    <div class="email-chrome">
+      <div class="email-field"><span class="field-label">From:</span><span class="field-value">Maya at ClearBook &lt;maya@clearbook.ai&gt;</span></div>
+      <div class="email-field"><span class="field-label">To:</span><span class="field-value">{{first_name}} &lt;{{email}}&gt;</span></div>
+      <div class="email-field"><span class="field-label">Subject:</span><span class="field-value"><span class="subject-line">Your books just got a lot less painful, {{first_name}}</span></span></div>
+    </div>
+    <div class="email-render">
+      <div class="email-inner">
+        <div class="email-logo-bar">
+          <div class="email-logo-icon">📒</div>
+          <span class="email-logo-name">ClearBook AI</span>
+        </div>
+        <div class="email-hero">
+          <h2>Welcome to ClearBook, {{first_name}}. Your 14-day trial starts now.</h2>
+          <p>Most small business owners spend 5–8 hours a month on bookkeeping. That's time you could spend on literally anything else. ClearBook AI does the categorisation, reconciliation, and reporting automatically — so your books are always current, and your accountant stops emailing you.</p>
+          <p>Here's the one thing to do right now to get started:</p>
+        </div>
+        <div class="email-feature-box">
+          <h3>→ Connect your bank account (takes 2 minutes)</h3>
+          <p>Once connected, ClearBook immediately categorises your last 90 days of transactions. Most users see their first fully reconciled month within 10 minutes of connecting.</p>
+        </div>
+        <div class="email-hero" style="padding-top:0;">
+          <a href="#" class="email-cta">Connect your bank →</a>
+        </div>
+        <hr class="email-divider">
+        <div class="email-body-text">
+          <p>A few things to know about your trial:</p>
+        </div>
+        <ul class="email-list">
+          <li>Full access to all features for 14 days — no credit card needed yet</li>
+          <li>Your data is encrypted and never shared with third parties</li>
+          <li>You can export everything in a standard format if you decide not to continue</li>
+          <li>I'm a real person — reply to this email if you have questions</li>
+        </ul>
+        <div class="email-sign">
+          <p>Talk soon,</p>
+          <p><strong>Maya Chen</strong></p>
+          <p style="font-size:0.78rem; color:#94A3B8;">Head of Customer Success, ClearBook AI</p>
+        </div>
+        <div class="email-footer">
+          <p>ClearBook AI · 340 Pine Street, San Francisco, CA · <a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <p class="annotation-label">Writing notes</p>
+      <ul class="annotation-list">
+        <li>Opens with the pain point (hours lost) before the product — leads with empathy, not features</li>
+        <li>Single CTA only — no competition for attention in email 1</li>
+        <li>Signed by a named person, not "The ClearBook Team" — reduces unsubscribe rate</li>
+        <li>Trial reassurances (no card, export option) address the #1 objection at signup stage</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 2 -->
+  <div class="email-block">
+    <div class="email-meta">
+      <span class="email-num">Email 2</span>
+      <span class="email-timing">Sent: Day 3 (non-activated users only)</span>
+    </div>
+    <div class="email-chrome">
+      <div class="email-field"><span class="field-label">From:</span><span class="field-value">Maya at ClearBook &lt;maya@clearbook.ai&gt;</span></div>
+      <div class="email-field"><span class="field-label">To:</span><span class="field-value">{{first_name}} &lt;{{email}}&gt;</span></div>
+      <div class="email-field"><span class="field-label">Subject:</span><span class="field-value"><span class="subject-line">What happened when we reconciled 3 years of messy books in 4 minutes</span></span></div>
+    </div>
+    <div class="email-render">
+      <div class="email-inner">
+        <div class="email-logo-bar">
+          <div class="email-logo-icon">📒</div>
+          <span class="email-logo-name">ClearBook AI</span>
+        </div>
+        <div class="email-hero">
+          <h2>The bookkeeping problem nobody talks about</h2>
+          <p>The biggest issue with small business books isn't that they're complicated. It's that they're <strong>three months behind</strong>. You're making decisions based on outdated numbers — and you might not even know it.</p>
+          <p>Last month, a user named Daniel connected ClearBook to his Shopify store and two bank accounts. He'd been putting off bookkeeping for most of the year. Here's what happened in his first session:</p>
+        </div>
+        <div class="email-stat-row">
+          <div class="email-stat">
+            <div class="email-stat-num">847</div>
+            <div class="email-stat-label">transactions categorised</div>
+          </div>
+          <div class="email-stat">
+            <div class="email-stat-num">4 min</div>
+            <div class="email-stat-label">to full reconciliation</div>
+          </div>
+          <div class="email-stat">
+            <div class="email-stat-num">£340</div>
+            <div class="email-stat-label">in expenses he'd missed</div>
+          </div>
+        </div>
+        <div class="email-body-text">
+          <p>Daniel found £340 in business expenses he'd forgotten to categorise — which reduced his tax bill by more than what ClearBook costs for a year.</p>
+          <p><strong>This is the part most people don't expect:</strong> the AI doesn't just save you time. It catches things you miss when you're rushing through spreadsheets at 11pm.</p>
+        </div>
+        <div class="email-hero" style="padding-top:0;">
+          <a href="#" class="email-cta">See your numbers now →</a>
+        </div>
+        <div class="email-body-text">
+          <p style="font-size:0.82rem; color:#94A3B8;">Your trial has 11 days left. Connecting takes about 2 minutes.</p>
+        </div>
+        <div class="email-sign">
+          <p>Maya</p>
+        </div>
+        <div class="email-footer">
+          <p>ClearBook AI · 340 Pine Street, San Francisco, CA · <a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <p class="annotation-label">Writing notes</p>
+      <ul class="annotation-list">
+        <li>Triggered only for non-activated users — activated users get a different Day 3 email focused on a feature upsell</li>
+        <li>Social proof through a specific, named, relatable customer story rather than a generic testimonial</li>
+        <li>The £340 figure makes the ROI concrete and personal — "it paid for itself" without stating it directly</li>
+        <li>Countdown creates urgency without being aggressive ("11 days left" not "HURRY!")</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 3 -->
+  <div class="email-block">
+    <div class="email-meta">
+      <span class="email-num">Email 3</span>
+      <span class="email-timing">Sent: Day 7 (all trial users)</span>
+    </div>
+    <div class="email-chrome">
+      <div class="email-field"><span class="field-label">From:</span><span class="field-value">Maya at ClearBook &lt;maya@clearbook.ai&gt;</span></div>
+      <div class="email-field"><span class="field-label">To:</span><span class="field-value">{{first_name}} &lt;{{email}}&gt;</span></div>
+      <div class="email-field"><span class="field-label">Subject:</span><span class="field-value"><span class="subject-line">Halfway through your trial — a quick check-in</span></span></div>
+    </div>
+    <div class="email-render">
+      <div class="email-inner">
+        <div class="email-logo-bar">
+          <div class="email-logo-icon">📒</div>
+          <span class="email-logo-name">ClearBook AI</span>
+        </div>
+        <div class="email-hero">
+          <h2>{{first_name}}, you're at the halfway point.</h2>
+          <p>Seven days in, seven to go. I wanted to check in — not with a sales pitch, but with a genuine question: is ClearBook doing what you hoped it would?</p>
+          <p>If yes — great. Here's why now is a good time to upgrade.</p>
+          <p>If not — I want to hear about it. Seriously. Reply to this email and tell me what's not working. We have a team that reads and responds to every message.</p>
+        </div>
+        <div class="email-testimonial">
+          <blockquote>"I was sceptical that AI could handle the weird edge cases in my freelance invoicing. It handled all of them. I'm saving four hours a month and my accountant actually complimented my books for the first time ever."</blockquote>
+          <cite>— Priya M., Independent Consultant, London</cite>
+        </div>
+        <div class="email-body-text">
+          <p><strong>If you're ready to upgrade, here's what you get on the Starter plan ($19/month):</strong></p>
+        </div>
+        <ul class="email-list">
+          <li>Unlimited transaction categorisation and reconciliation</li>
+          <li>Real-time P&L, cash flow, and tax summary reports</li>
+          <li>Direct export to your accountant's preferred format</li>
+          <li>Connect up to 5 bank accounts and payment processors</li>
+          <li>Priority support with a 4-hour response guarantee</li>
+        </ul>
+        <div class="email-hero" style="padding-top:1rem;">
+          <a href="#" class="email-cta">Upgrade now — keep all your data →</a>
+          <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.75rem;">No annual commitment. Cancel any time. Your trial data transfers automatically.</p>
+        </div>
+        <div class="email-sign">
+          <p>Either way — thanks for giving ClearBook a try. I hope it's been useful.</p>
+          <br>
+          <p><strong>Maya Chen</strong></p>
+          <p style="font-size:0.78rem; color:#94A3B8;">Head of Customer Success, ClearBook AI</p>
+          <p style="font-size:0.78rem; color:#94A3B8;">P.S. If you have a question before upgrading, just reply here. I check this inbox personally.</p>
+        </div>
+        <div class="email-footer">
+          <p>ClearBook AI · 340 Pine Street, San Francisco, CA · <a href="#">Unsubscribe</a> · <a href="#">Privacy Policy</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <p class="annotation-label">Writing notes</p>
+      <ul class="annotation-list">
+        <li>Opens with a check-in, not a pitch — disarms the "sales email" skip instinct</li>
+        <li>"If not — I want to hear about it" recovers churning users and generates product feedback simultaneously</li>
+        <li>Testimonial chosen to address a specific objection (edge cases) rather than a generic "love it!" quote</li>
+        <li>CTA copy emphasises data continuity ("keep all your data") — the biggest anxiety at the upgrade moment</li>
+        <li>PS line is the most-read part of any email — used here to reinforce human availability</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
