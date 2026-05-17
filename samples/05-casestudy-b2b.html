@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Meridian Logistics × Resolve AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: #F8F9FA; color: #1A1A18; font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  .sample-bar { background: #1A1A18; color: rgba(255,255,255,0.7); font-size: 0.75rem; padding: 0.55rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+  .sample-bar a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .sample-bar a:hover { color: #fff; }
+  .sample-badge { background: #C27A20; color: #fff; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 100px; }
+
+  .case-header { background: #1A1A18; color: #fff; padding: 3.5rem 0 0; }
+  .case-header-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem 3rem; }
+  .case-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1rem; }
+  .case-header h1 { font-family: 'Lora', serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 400; line-height: 1.2; color: #fff; margin-bottom: 1rem; }
+  .case-header .lead { font-size: 1.05rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.75; max-width: 600px; }
+  .case-meta-strip { background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.08); margin-top: 2.5rem; padding: 1.5rem 3rem; max-width: none; display: flex; gap: 3rem; flex-wrap: wrap; }
+  .case-meta-strip-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 3rem; flex-wrap: wrap; width: 100%; }
+  .case-meta-item p { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.2rem; }
+  .case-meta-item strong { font-size: 0.9rem; color: rgba(255,255,255,0.75); font-weight: 400; }
+
+  .results-banner { background: #2A52BE; }
+  .results-inner { max-width: 900px; margin: 0 auto; padding: 2rem 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.1); }
+  .result-item { background: #2A52BE; padding: 1.5rem 1.25rem; text-align: center; }
+  .result-num { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 400; color: #fff; line-height: 1; }
+  .result-label { font-size: 0.77rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem; line-height: 1.4; }
+
+  .case-body { max-width: 900px; margin: 0 auto; padding: 3rem; display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+  .case-content {}
+
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #2A52BE; margin-bottom: 0.6rem; }
+  .case-content h2 { font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 400; color: #1A1A18; margin-bottom: 1rem; }
+  .case-content p { font-size: 0.92rem; color: #3D4A5C; font-weight: 300; line-height: 1.8; margin-bottom: 1rem; }
+  .case-content strong { font-weight: 500; color: #1A1A18; }
+  .case-content ul { margin: 0.5rem 0 1rem 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .case-content ul li { font-size: 0.9rem; color: #3D4A5C; font-weight: 300; display: flex; gap: 0.6rem; }
+  .case-content ul li::before { content: '→'; color: #2A52BE; flex-shrink: 0; }
+
+  .case-section { padding-top: 2.5rem; margin-top: 2.5rem; border-top: 1px solid #E5E7EB; }
+
+  .pull-quote { background: #EEF2FF; border-left: 3px solid #2A52BE; padding: 1.5rem 1.75rem; border-radius: 0 8px 8px 0; margin: 2rem 0; }
+  .pull-quote blockquote { font-family: 'Lora', serif; font-size: 1.1rem; font-style: italic; color: #1A1A18; line-height: 1.6; margin-bottom: 0.6rem; }
+  .pull-quote cite { font-size: 0.8rem; color: #6B7280; font-style: normal; }
+
+  .timeline { margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: flex; gap: 1rem; position: relative; }
+  .timeline-left { display: flex; flex-direction: column; align-items: center; width: 40px; flex-shrink: 0; }
+  .timeline-dot { width: 12px; height: 12px; background: #2A52BE; border-radius: 50%; flex-shrink: 0; margin-top: 0.4rem; }
+  .timeline-line { width: 1px; background: #BFDBFE; flex: 1; min-height: 2rem; }
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-content { padding-bottom: 1.5rem; }
+  .timeline-week { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #2A52BE; margin-bottom: 0.2rem; }
+  .timeline-content h4 { font-size: 0.9rem; font-weight: 500; color: #1A1A18; margin-bottom: 0.3rem; }
+  .timeline-content p { font-size: 0.83rem; color: #6B7280; font-weight: 300; margin: 0; line-height: 1.6; }
+
+  /* Sidebar */
+  .case-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+  .sidebar-card { background: #fff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 1.25rem; }
+  .sidebar-card h3 { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #6B7280; margin-bottom: 0.85rem; }
+  .sidebar-item { font-size: 0.85rem; padding: 0.5rem 0; border-bottom: 1px solid #F3F4F6; display: flex; flex-direction: column; }
+  .sidebar-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .sidebar-item span { font-size: 0.75rem; color: #9CA3AF; margin-bottom: 0.1rem; }
+  .sidebar-item strong { color: #1A1A18; font-weight: 500; }
+  .result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid #F3F4F6; }
+  .result-row:last-child { border-bottom: none; }
+  .result-label-side { font-size: 0.82rem; color: #4B5563; font-weight: 300; }
+  .result-val { font-size: 0.88rem; font-weight: 500; color: #2A52BE; }
+
+  .cta-card { background: #1A1A18; border-radius: 8px; padding: 1.5rem; }
+  .cta-card h3 { font-size: 0.95rem; font-weight: 500; color: #fff; margin-bottom: 0.5rem; }
+  .cta-card p { font-size: 0.82rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.6; margin-bottom: 1.25rem; }
+  .cta-card a { display: block; text-align: center; background: #2A52BE; color: #fff; font-size: 0.82rem; font-weight: 500; padding: 0.7rem 1rem; border-radius: 4px; text-decoration: none; transition: opacity 0.2s; }
+  .cta-card a:hover { opacity: 0.85; }
+
+  @media (max-width: 768px) {
+    .case-body { grid-template-columns: 1fr; }
+    .results-inner { grid-template-columns: 1fr 1fr; }
+    .case-meta-strip-inner { gap: 1.5rem; }
+    .case-header-inner, .case-body { padding: 2rem 1.5rem; }
+    .case-meta-strip { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sample-bar">
+  <a href="../portfolio.html">← Back to portfolio</a>
+  <span>Portfolio sample — <strong style="color:#fff;">Aashi Agarwal</strong> · Case Study · General B2B Tech</span>
+  <span class="sample-badge">Sample Work</span>
+</div>
+
+<div class="case-header">
+  <div class="case-header-inner">
+    <p class="case-label">Customer Case Study</p>
+    <h1>How Meridian Logistics Cut Support Ticket Volume by 67% in 60 Days</h1>
+    <p class="lead">When Meridian's support team couldn't keep pace with growth, they turned to Resolve AI — and rebuilt their customer experience from the ground up.</p>
+  </div>
+  <div class="case-meta-strip">
+    <div class="case-meta-strip-inner">
+      <div class="case-meta-item"><p>Company</p><strong>Meridian Logistics</strong></div>
+      <div class="case-meta-item"><p>Industry</p><strong>Third-party logistics (3PL)</strong></div>
+      <div class="case-meta-item"><p>Size</p><strong>480 employees · 12 warehouses</strong></div>
+      <div class="case-meta-item"><p>Location</p><strong>Chicago, IL (HQ)</strong></div>
+      <div class="case-meta-item"><p>Implementation</p><strong>6 weeks</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="results-banner">
+  <div class="results-inner">
+    <div class="result-item"><div class="result-num">67%</div><div class="result-label">Fewer support tickets in 60 days</div></div>
+    <div class="result-item"><div class="result-num">38%</div><div class="result-label">Of queries resolved without human agent</div></div>
+    <div class="result-item"><div class="result-num">4.6★</div><div class="result-label">CSAT score (up from 3.1)</div></div>
+    <div class="result-item"><div class="result-num">$210K</div><div class="result-label">Estimated annual cost savings</div></div>
+  </div>
+</div>
+
+<div class="case-body">
+  <div class="case-content">
+
+    <div>
+      <p class="section-label">The Challenge</p>
+      <h2>Growing fast, drowning in tickets</h2>
+      <p>Meridian Logistics had a good problem: business was growing. In the 18 months leading up to their Resolve AI deployment, Meridian had added four new warehouse locations and grown their client base by 60%. Their headcount had grown too — but not fast enough to keep pace with the support volume that came with it.</p>
+      <p>By Q3 2024, Meridian's five-person support team was handling over 1,200 tickets per month. Average first response time had climbed to 11 hours. Customer satisfaction had dropped from 4.1 to 3.1 out of 5. Their biggest enterprise clients were starting to ask questions.</p>
+      <p><strong>The core issue wasn't a hiring problem — it was a systems problem.</strong> The vast majority of incoming tickets fell into predictable categories: shipment status queries, proof of delivery requests, invoice questions, and standard claims procedures. These were queries that didn't need a human — they needed better access to information.</p>
+
+      <div class="pull-quote">
+        <blockquote>"Our team was spending 70% of their time answering the same ten questions in slightly different ways. They're experienced logistics professionals — that's not what they should be doing."</blockquote>
+        <cite>— James Okafor, VP of Customer Operations, Meridian Logistics</cite>
+      </div>
+
+      <p>Meridian evaluated several solutions, including expanding their support team and implementing a traditional rule-based chatbot. Both were rejected: hiring would take too long and didn't solve the underlying problem, and preliminary testing showed that rule-based chatbots failed to handle the natural language variation in customer queries.</p>
+    </div>
+
+    <div class="case-section">
+      <p class="section-label">The Solution</p>
+      <h2>AI-powered support that understands logistics</h2>
+      <p>Meridian deployed Resolve AI across their customer-facing support portal and email channel, with integration into their existing TMS (transportation management system) and warehouse management software.</p>
+      <p>The implementation covered three layers:</p>
+      <ul>
+        <li><strong>Intelligent ticket triage</strong> — all incoming tickets classified by type, urgency, and client tier within seconds of receipt</li>
+        <li><strong>AI-assisted responses</strong> — for the 12 most common query categories, Resolve AI drafted full responses using live shipment data and client records, which agents could review and send in one click</li>
+        <li><strong>Fully automated resolution</strong> — for simple status and document requests, the system resolved queries directly and logged the interaction, with a human review queue for flagged cases</li>
+      </ul>
+
+      <p>A key requirement from Meridian was that the AI needed to handle the specificity of logistics queries — partial shipment updates, carrier-specific tracking formats, customs documentation questions — without generic, unhelpful responses. Resolve AI's domain-tuned model was trained on logistics support data and integrated directly with Meridian's data sources, giving it accurate, real-time context for every query.</p>
+    </div>
+
+    <div class="case-section">
+      <p class="section-label">Implementation</p>
+      <h2>Six weeks from contract to live</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-week">Weeks 1–2</div>
+            <h4>Discovery and integration</h4>
+            <p>Resolve AI's implementation team mapped Meridian's ticket taxonomy, integrated with their TMS and WMS via API, and configured access controls across 12 warehouse locations.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-week">Weeks 3–4</div>
+            <h4>Training and calibration</h4>
+            <p>The AI was calibrated on 6 months of historical Meridian tickets. The support team tested responses across 200 sample queries and provided feedback to improve accuracy before go-live.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 5</div>
+            <h4>Staged rollout</h4>
+            <p>Launched with assisted mode only — agents received AI-drafted responses to review and edit. This built team trust and surfaced calibration issues before full automation was enabled.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 6</div>
+            <h4>Full deployment</h4>
+            <p>Automated resolution enabled for the top 5 ticket categories. Human review queue established with escalation thresholds set by the operations team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section">
+      <p class="section-label">The Results</p>
+      <h2>60 days later</h2>
+      <p>The impact was measurable within the first month of full deployment and continued to improve as the system learned from new interactions.</p>
+      <p><strong>Ticket volume dropped by 67%</strong> — not because customers stopped needing help, but because queries were being resolved on first contact rather than creating follow-up tickets. Before Resolve AI, 40% of tickets required at least one follow-up. After, that figure dropped to 8%.</p>
+      <p><strong>38% of incoming queries are now fully resolved by the AI</strong> without agent involvement. For Meridian's support team, this meant reclaiming an estimated 180 person-hours per month — time redirected to complex claims, VIP client management, and process improvement work that had been deferred for over a year.</p>
+      <p><strong>Customer satisfaction recovered and then improved</strong>. CSAT climbed from 3.1 to 4.6 out of 5 within 60 days. Post-interaction surveys highlighted speed as the primary driver — customers received accurate answers in under 3 minutes on average, compared to an 11-hour average response time previously.</p>
+
+      <div class="pull-quote">
+        <blockquote>"Our team went from feeling like they were always behind to actually being ahead of the queue for the first time in two years. That's been the biggest change — not just the numbers, but the morale."</blockquote>
+        <cite>— Sarah Whitmore, Senior Support Lead, Meridian Logistics</cite>
+      </div>
+
+      <p>The estimated annual cost saving of $210,000 accounts for reduced overtime, avoided headcount additions, and a decrease in client churn attributable to improved support quality. Meridian is currently expanding the Resolve AI deployment to their carrier partner portal.</p>
+    </div>
+
+  </div>
+
+  <aside class="case-sidebar">
+    <div class="sidebar-card">
+      <h3>Company Snapshot</h3>
+      <div class="sidebar-item"><span>Company</span><strong>Meridian Logistics</strong></div>
+      <div class="sidebar-item"><span>Founded</span><strong>2009</strong></div>
+      <div class="sidebar-item"><span>Employees</span><strong>~480</strong></div>
+      <div class="sidebar-item"><span>Warehouses</span><strong>12 locations (US)</strong></div>
+      <div class="sidebar-item"><span>Annual revenue</span><strong>$85M</strong></div>
+    </div>
+    <div class="sidebar-card">
+      <h3>Key Results</h3>
+      <div class="result-row"><span class="result-label-side">Ticket reduction</span><span class="result-val">↓ 67%</span></div>
+      <div class="result-row"><span class="result-label-side">Auto-resolved</span><span class="result-val">38%</span></div>
+      <div class="result-row"><span class="result-label-side">Response time</span><span class="result-val">11h → 3 min</span></div>
+      <div class="result-row"><span class="result-label-side">CSAT</span><span class="result-val">3.1 → 4.6 ★</span></div>
+      <div class="result-row"><span class="result-label-side">Annual savings</span><span class="result-val">$210K</span></div>
+      <div class="result-row"><span class="result-label-side">Time to deploy</span><span class="result-val">6 weeks</span></div>
+    </div>
+    <div class="sidebar-card">
+      <h3>Products Used</h3>
+      <div class="sidebar-item"><span>Platform</span><strong>Resolve AI Enterprise</strong></div>
+      <div class="sidebar-item"><span>Integrations</span><strong>TMS, WMS, Email, Support Portal</strong></div>
+      <div class="sidebar-item"><span>Model</span><strong>Logistics-tuned LLM</strong></div>
+    </div>
+    <div class="cta-card">
+      <h3>See similar results</h3>
+      <p>Talk to our team about what Resolve AI could do for your support operation.</p>
+      <a href="#">Book a Demo →</a>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>
